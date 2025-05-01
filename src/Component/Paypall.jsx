@@ -1,17 +1,22 @@
 import React, { useContext } from 'react';
 import { currencyContext } from "../App";
 import { amountContext } from "../App";
+import { CURRENCIES } from '../Utils/CurrencyUtils';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Paypall = () => {
-    const { currency, changeCurrency } = useContext(currencyContext); 
-    const { amount, changeAmount } = useContext(amountContext);
-    
+    const { currency } = useContext(currencyContext); 
+    const { amount } = useContext(amountContext);
+
+    const rate = CURRENCIES[currency];
+
     return (
-        <>
-            <p>Currency is: {currency}</p>
-            <button onClick={changeCurrency}>Change it from Paypall</button>
-            <p>Amount is: {amount}</p>
-        </>
+        <div className="text-center mt-4">
+        <p className="fw-semibold fs-5">
+          {currency}, {amount} ={" "}
+          {rate ? (amount * rate).toFixed(2) : "Invalid currency"} RSD
+        </p>
+        </div>
     );
 };
 
